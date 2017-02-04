@@ -14,6 +14,10 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.Collection;
 
 public class RangingActivity extends AppCompatActivity implements BeaconConsumer {
@@ -73,6 +77,23 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                 }
                 textView.post(new Runnable() {
                     public void run() {
+                        Sender sender = null;
+                        try {
+
+                            String messageStr="Hello Android!";
+                            int server_port = 8888;
+                            DatagramSocket s = new DatagramSocket();
+                            InetAddress local = InetAddress.getByName("10.244.52.187");
+                            int msg_length=messageStr.length();
+                            byte[] message = messageStr.getBytes();
+                            DatagramPacket p = new DatagramPacket(message, msg_length,local,server_port);
+                            s.send(p);
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         textView.setText(str);
                     }
                 });

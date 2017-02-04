@@ -19,6 +19,12 @@ import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Collection;
 
 
@@ -30,7 +36,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.user_init);
 
         beaconManager = BeaconManager.getInstanceForApplication(this);
         addNotifier();
@@ -38,12 +44,41 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
-        Button button = (Button) findViewById(R.id.ref);
+        Button button = (Button) findViewById(R.id.start);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BeaconActivity.this, RangingActivity.class));
-                BeaconActivity.this.finish();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                        Sender sender = new Sender(1505, "233.0.0.1", 8888, "10.21.0.36");
+                        sender.request("variabila");
+
+
+
+//                            String messageStr="Hello Android!";
+//                            int server_port = 8888;
+//                            DatagramSocket s = null;
+//                            s = new DatagramSocket();
+//                            InetAddress local = InetAddress.getByName("10.244.52.187");
+//                            int msg_length=messageStr.length();
+//                            byte[] message = messageStr.getBytes();
+//                            DatagramPacket p = new DatagramPacket(message, msg_length,local,server_port);
+//                            s.send(p);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+
+
+//                startActivity(new Intent(BeaconActivity.this, RangingActivity.class));
+//                BeaconActivity.this.finish();
             }
         });
 
