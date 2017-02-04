@@ -16,14 +16,14 @@ import java.net.MalformedURLException;
 
 public class Client {
 
-    static {
-        Webcam.setDriver(new IpCamDriver());
-    }
+//    static {
+//        Webcam.setDriver(new IpCamDriver());
+//    }
 
     public static void main(String[] args) throws MalformedURLException {
 
 //        System.setProperty("com.sun.net.ssl.checkRevocation","false");
-        IpCamDeviceRegistry.register("First", "", IpCamMode.PUSH);
+//        IpCamDeviceRegistry.register("First", "", IpCamMode.PUSH);
 //        IpCamDeviceRegistry.register("Second", "https://10.244.52.172:8080/watch/upqve07qcscz094j", IpCamMode.PUSH);
 
 //        Webcam webcam = Webcam.getWebcams().get(0);
