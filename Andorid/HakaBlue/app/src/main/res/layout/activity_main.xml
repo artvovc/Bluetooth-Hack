@@ -8,13 +8,17 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.msa.hakablue.MainActivity">
+    android:paddingTop="@dimen/activity_vertical_margin" >
 
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/ref"
         android:text="refresh"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/min"
         android:layout_height="wrap_content" />
 
     <ListView

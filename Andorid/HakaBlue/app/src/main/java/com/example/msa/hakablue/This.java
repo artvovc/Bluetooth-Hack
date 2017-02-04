@@ -1,13 +1,8 @@
 package com.example.msa.hakablue;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.app.Application;
 import android.os.RemoteException;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
@@ -21,16 +16,17 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 
+/**
+ * Created by msa on 04.02.17.
+ */
 
-public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
-
+public class This extends Application implements BeaconConsumer {
     public static final String TAG = "BeaconsEverywhere";
     private BeaconManager beaconManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void onCreate() {
+        super.onCreate();
 
         beaconManager = BeaconManager.getInstanceForApplication(this);
         addNotifier();
@@ -38,29 +34,10 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
-        Button button = (Button) findViewById(R.id.ref);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BeaconActivity.this, RangingActivity.class));
-                BeaconActivity.this.finish();
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         beaconManager.bind(this);
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        beaconManager.unbind(this);
-    }
 
     @Override
     public void onBeaconServiceConnect() {
@@ -114,15 +91,15 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon oneBeacon : beacons) {
 
-                    toast();
+//                    toast();
 
 //                    Toast.makeText(this,
 //                            "distance: " + oneBeacon.getDistance() + " id:" + oneBeacon.getId1() + "/" + oneBeacon.getId2() + "/" + oneBeacon.getId3()
 //                            , Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "distance: " + oneBeacon.getDistance() + " id:" + oneBeacon.getId1() + "/" + oneBeacon.getId2() + "/" + oneBeacon.getId3());
-                    toast();
-                    Log.d(TAG,"===============================================================");
+//                    toast();
+//                    Log.d(TAG,"===============================================================");
                 }
             }
 
@@ -132,5 +109,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     private void toast() {
         Toast.makeText(this, "beacon", Toast.LENGTH_SHORT).show();
     }
+
 
 }
