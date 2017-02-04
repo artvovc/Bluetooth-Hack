@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -35,6 +36,9 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         super.onCreate();
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19"));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
         Region region = new Region("backgroundRegion", Identifier.parse("c336aa38-54bb-483b-ae75-3ba707855035"), null, null);
         regionBootstrap = new RegionBootstrap(this, region);
@@ -48,6 +52,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     @Override
     public void didEnterRegion(Region region) {
+        Toast.makeText(getApplicationContext(), "entered app", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "did enter region.");
         try {
             beaconManager.startRangingBeaconsInRegion(region);
