@@ -29,6 +29,8 @@ public class UdpServer {
     public void run() {
         try {
             config();
+            System.out.println(serverSocket.getLocalAddress());
+            System.out.println(serverSocket.getLocalSocketAddress());
             while (true) {
                 System.out.println("Server receive and send");
                 byte[] receiveBuff = new byte[1024];
