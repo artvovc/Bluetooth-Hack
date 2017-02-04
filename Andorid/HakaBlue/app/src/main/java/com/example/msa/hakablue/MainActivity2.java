@@ -3,11 +3,13 @@ package com.example.msa.hakablue;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -95,6 +100,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     static int max = 0;
 
+    private static final UUID MY_UUID = UUID
+            .fromString("00001101-0000-1000-8000-00805F9B34FB");
+
     final BroadcastReceiver blReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -104,13 +112,29 @@ public class MainActivity2 extends AppCompatActivity {
             List<String> mac = new ArrayList<>();
 
             String action = intent.getAction();
+            String uuid = "";
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                 uuid = intent.getStringExtra(BluetoothDevice.EXTRA_UUID);
+
+
+
+            }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 int rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MAX_VALUE);
-                int uuid = intent.getShortExtra(BluetoothDevice.EXTRA_UUID,Short.MAX_VALUE);
 
 
 
+
+//                UUID uuid1 = UUID.nameUUIDFromBytes(device.getUuids()[0].getUuid());
+
+
+//                UUID uuid22 = device.getUuids()[0].getUuid();
+//                try {
+//                    int uuid2 = device.getUuids()[22];
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 if (rssi < max) {
                     max = rssi;
