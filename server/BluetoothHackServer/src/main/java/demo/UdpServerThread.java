@@ -1,11 +1,11 @@
 package demo;
 
-import listener.UdpListener;
+import updserver.UdpServer;
 
 /**
  * Created by Artemie on 04.02.2017.
  */
-public class ListenerThread {
+public class UdpServerThread {
 
     private static final String UDP_HOST = "10.21.0.36";
     private static final int UDP_PORT = 8888;
@@ -13,10 +13,11 @@ public class ListenerThread {
     private static final int BROADCAST_PORT = 1501;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Listener started");
-        UdpListener udpListener = new UdpListener(BROADCAST_PORT,BROADCAST_HOST,UDP_PORT,UDP_HOST);
-        Thread listenerThread = new Thread(udpListener::run);
-        listenerThread.start();
+//        UdpServer udpServer = new UdpServer(8888,"10.244.52.187");
+        UdpServer udpServer = new UdpServer(UDP_PORT, UDP_HOST, BROADCAST_PORT, BROADCAST_HOST);
+        Thread udpThread = new Thread(udpServer::run);
+        udpThread.start();
+        System.out.println("Server was started");
         Thread.currentThread().join();
     }
 }

@@ -13,9 +13,9 @@ public class Sender {
 
     private MulticastSocket multicastSocket = null;
     private int BROADCAST_PORT = 1505;
-    private String BROADCAST_HOST = "233.0.0.1";
+    private String BROADCAST_HOST = "203.0.113.0";
     private int UDP_SERVER_PORT = 8888;
-    private String UDP_SERVER_HOST = "127.0.0.1";
+    private String UDP_SERVER_HOST = "10.21.0.36";
 
 
     public Sender(int BROADCAST_PORT, String BROADCAST_HOST, int UDP_SERVER_PORT, String UDP_SERVER_HOST) throws IOException {
@@ -43,9 +43,6 @@ public class Sender {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Sender sender = new Sender(1505,"233.0.0.1",8888,"127.0.0.1");
-        sender.request();
-    }
+
 
 }
