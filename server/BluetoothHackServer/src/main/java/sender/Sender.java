@@ -31,9 +31,8 @@ public class Sender {
         this.multicastSocket.joinGroup(InetAddress.getByName(BROADCAST_HOST));
     }
 
-    public void request() throws Exception{
+    public void request(String msg) throws Exception{
         config();
-        String msg = "message";
         try{
             DatagramPacket datagramPacket = new DatagramPacket(msg.getBytes(),msg.length(),new InetSocketAddress(this.UDP_SERVER_HOST,this.UDP_SERVER_PORT));
             this.multicastSocket.send(datagramPacket);

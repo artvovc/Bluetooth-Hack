@@ -14,6 +14,6 @@ public class SenderDemo {
 
     public static void main(String[] args) throws Exception {
         Sender sender = new Sender(BROADCAST_PORT, BROADCAST_HOST, UDP_PORT, UDP_HOST);
-        sender.request();
+        sender.request("1");
     }
 }

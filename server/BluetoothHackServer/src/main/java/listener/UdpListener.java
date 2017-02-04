@@ -41,9 +41,6 @@ public class UdpListener {
 
             String msg = new String(receiveDatagramPacket.getData());
 
-
-
-
             System.out.println(msg);
         }
     } catch (Exception e) {
