@@ -14,22 +14,23 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-public class StartServer {
+public class Client {
 
-//    static {
-//        Webcam.setDriver(new IpCamDriver());
-//    }
+    static {
+        Webcam.setDriver(new IpCamDriver());
+    }
 
     public static void main(String[] args) throws MalformedURLException {
 
 //        System.setProperty("com.sun.net.ssl.checkRevocation","false");
-//        IpCamDeviceRegistry.register("First", "https://10.244.52.172:8080/watch/upqve07qcscz094j", IpCamMode.PUSH);
+        IpCamDeviceRegistry.register("First", "", IpCamMode.PUSH);
 //        IpCamDeviceRegistry.register("Second", "https://10.244.52.172:8080/watch/upqve07qcscz094j", IpCamMode.PUSH);
-//
+
 //        Webcam webcam = Webcam.getWebcams().get(0);
-        Webcam webcam = Webcam.getDefault();
-        webcam.open();
-        WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
+//        Webcam webcam1 = Webcam.getDefault();
+//        webcam1.open();
+
+//        WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
 
 
 
@@ -55,10 +56,16 @@ public class StartServer {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Value.getInstance().setValue(jTextField.getText());
-                ((JTextField)Frame.getInstance().getF().getContentPane().getComponent(3)).setText(
-                        Value.getInstance().getValue()
-                );
+//                Value.getInstance().setValue(jTextField.getText());
+//                ((JTextField)Frame.getInstance().getF().getContentPane().getComponent(3)).setText(
+//                        Value.getInstance().getValue()
+//                );
+                Value.getInstance().setValue();
+
+                SCamera.getInstance().setPanel(new WebcamPanel(Webcam.getWebcams().get(0)),Value.getInstance().getValue());
+//                SCamera.getInstance().setPanel(null,Value.getInstance().getValue());
+
+
             }
         });
 
@@ -70,7 +77,7 @@ public class StartServer {
         f.getContentPane().setLayout(new FlowLayout());
         f.getContentPane().add(jTextField);
         f.getContentPane().add(jButton);
-        f.getContentPane().add(panel);
+        f.getContentPane().add(SCamera.getInstance().getPanel());
         f.getContentPane().add(jTextField1);
         f.pack();
         f.setVisible(true);
