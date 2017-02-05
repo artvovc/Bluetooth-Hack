@@ -7,7 +7,7 @@ import updserver.UdpServer;
  */
 public class UdpServerThread {
 
-    private static final String UDP_HOST = "10.21.0.36";
+    private static final String UDP_HOST = "10.244.52.187";
     private static final int UDP_PORT = 8888;
     private static final String BROADCAST_HOST = "233.0.0.1";
     private static final int BROADCAST_PORT = 1501;

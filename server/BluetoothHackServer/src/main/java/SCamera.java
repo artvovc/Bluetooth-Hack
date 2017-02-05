@@ -11,7 +11,7 @@ public class SCamera {
         return ourInstance;
     }
 
-    WebcamPanel panel = new WebcamPanel(Webcam.getDefault());
+    WebcamPanel panel;
 
     int camera = 0;
 
@@ -19,11 +19,10 @@ public class SCamera {
         return panel;
     }
 
-    public void setPanel(WebcamPanel panel,int camera) {
-        if(this.camera != camera)
+    public void setPanel(WebcamPanel panel) {
         this.panel = panel;
-        if(this.camera == 0) this.panel = new WebcamPanel(Webcam.getDefault());
     }
+
 
     private SCamera() {
     }
